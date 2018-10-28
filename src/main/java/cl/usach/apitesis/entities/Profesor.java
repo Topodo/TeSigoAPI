@@ -22,7 +22,7 @@ public class Profesor {
     private String apellidoMaterno;
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
-    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Curso> cursos;
 

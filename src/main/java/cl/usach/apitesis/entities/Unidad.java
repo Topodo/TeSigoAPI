@@ -22,13 +22,11 @@ public class Unidad implements Serializable {
     private String ejes;
     @Column(name = "BIMESTRE")
     private String bimestre;
-    @Column(name = "ID_CURSO")
-    private long idCurso;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_CURSO")
     @JsonBackReference
     private Curso curso;
-    @OneToMany(mappedBy = "objetivo_aprendizaje", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<ObjetivoAprendizaje> objetivosAprendizaje;
 
@@ -70,14 +68,6 @@ public class Unidad implements Serializable {
 
     public void setBimestre(String bimestre) {
         this.bimestre = bimestre;
-    }
-
-    public long getIdCurso() {
-        return idCurso;
-    }
-
-    public void setIdCurso(long idCurso) {
-        this.idCurso = idCurso;
     }
 
     public Curso getCurso() {

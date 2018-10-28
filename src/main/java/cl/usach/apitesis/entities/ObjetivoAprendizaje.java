@@ -15,13 +15,11 @@ public class ObjetivoAprendizaje implements Serializable {
     private long idObjetivo;
     @Column(name = "DESCRIPCION_OBJETIVO")
     private String descripcionObjetivo;
-    @Column(name = "ID_UNIDAD")
-    private long idUnidad;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_UNIDAD")
     @JsonBackReference
     private Unidad unidad;
-    @OneToMany(mappedBy = "indicador_evaluacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "objetivoAprendizaje", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<IndicadorEvaluacion> indicadoresEvaluacion;
 
@@ -31,14 +29,6 @@ public class ObjetivoAprendizaje implements Serializable {
 
     public void setDescripcionObjetivo(String descripcionObjetivo) {
         this.descripcionObjetivo = descripcionObjetivo;
-    }
-
-    public long getIdUnidad() {
-        return idUnidad;
-    }
-
-    public void setIdUnidad(long idUnidad) {
-        this.idUnidad = idUnidad;
     }
 
     public Unidad getUnidad() {

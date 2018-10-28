@@ -17,8 +17,6 @@ public class Reporte implements Serializable {
     private String nombreProfesor;
     @Column(name = "DESCRIPCION_REPORTE")
     private String descripcionReporte;
-    @Column(name = "ID_ALUMNO")
-    private long idAlumno;
     @Column(name = "ASUNTO")
     private String asunto;
     @ManyToOne(cascade = CascadeType.ALL)
@@ -48,14 +46,6 @@ public class Reporte implements Serializable {
 
     public void setDescripcionReporte(String descripcionReporte) {
         this.descripcionReporte = descripcionReporte;
-    }
-
-    public long getIdAlumno() {
-        return idAlumno;
-    }
-
-    public void setIdAlumno(long idAlumno) {
-        this.idAlumno = idAlumno;
     }
 
     public String getAsunto() {

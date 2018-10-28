@@ -18,16 +18,14 @@ public class Curso implements Serializable {
     private String gradoCurso;
     @Column(name = "CANTIDAD_ALUMNOS")
     private long cantidadAlumnos;
-    @Column(name = "ID_PROFESOR")
-    private long idProfesor;
-    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Alumno> alumnos;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_PROFESOR")
     @JsonBackReference
     private Profesor profesor;
-    @OneToMany(mappedBy = "unidad", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<Unidad> unidades;
 
@@ -53,14 +51,6 @@ public class Curso implements Serializable {
 
     public void setCantidadAlumnos(long cantidadAlumnos) {
         this.cantidadAlumnos = cantidadAlumnos;
-    }
-
-    public long getIdProfesor() {
-        return idProfesor;
-    }
-
-    public void setIdProfesor(long idProfesor) {
-        this.idProfesor = idProfesor;
     }
 
     public Set<Alumno> getAlumnos() {
