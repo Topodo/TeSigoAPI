@@ -46,4 +46,12 @@ public class ObjetivoAprendizaje implements Serializable {
     public void setIndicadoresEvaluacion(Set<IndicadorEvaluacion> indicadoresEvaluacion) {
         this.indicadoresEvaluacion = indicadoresEvaluacion;
     }
+
+    public long getIdObjetivo() {
+        return idObjetivo;
+    }
+
+    public void setIdObjetivo(long idObjetivo) {
+        this.idObjetivo = idObjetivo;
+    }
 }
