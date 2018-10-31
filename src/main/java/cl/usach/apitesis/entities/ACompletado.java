@@ -17,11 +17,11 @@ public class ACompletado implements Serializable {
     private Boolean indicadorCompletado;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ALUMNO")
-    @JsonBackReference
+    @JsonBackReference(value = "alumno-a-completado")
     private Alumno alumno;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_INDICADOR")
-    @JsonBackReference
+    @JsonBackReference(value = "indicador-evaluacion-a-completado")
     private IndicadorEvaluacion indicadorEvaluacion;
 
     public Boolean getIndicadorCompletado() {

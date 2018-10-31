@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Reporte implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_REPORTE")
     private long idReporte;
     @Column(name = "NOMBRE_PROFESOR")
@@ -21,7 +21,7 @@ public class Reporte implements Serializable {
     private String asunto;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ALUMNO")
-    @JsonBackReference
+    @JsonBackReference(value = "alumno-reporte")
     private Alumno alumno;
 
     public long getIdReporte() {

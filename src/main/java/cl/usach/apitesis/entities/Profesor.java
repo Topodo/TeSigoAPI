@@ -1,32 +1,42 @@
 package cl.usach.apitesis.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name="profesor")
-public class Profesor {
+@Table(name = "profesor")
+@JsonIgnoreProperties(ignoreUnknown=true, value={"hibernateLazyInitializer", "handler"})
+public class Profesor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_PROFESOR")
-    private long idProfesor;
+    private Long idProfesor;
+
     @Column(name = "NOMBRE_PROFESOR")
     private String nombreProfesor;
+
     @Column(name = "APELLIDO_PATERNO")
     private String apellidoPaterno;
+
     @Column(name = "APELLIDO_MATERNO")
     private String apellidoMaterno;
+
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
+
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonManagedReference(value = "profesor-curso")
     private Set<Curso> cursos;
 
-    public long getIdProfesor() {
+    @Column(name = "FIREBASE_UID")
+    private String firebaseUID;
+
+    public Long getIdProfesor() {
         return idProfesor;
     }
 
@@ -72,5 +82,13 @@ public class Profesor {
 
     public void setCursos(Set<Curso> cursos) {
         this.cursos = cursos;
+    }
+
+    public String getFirebaseUID() {
+        return firebaseUID;
+    }
+
+    public void setFirebaseUID(String firebaseUID) {
+        this.firebaseUID = firebaseUID;
     }
 }

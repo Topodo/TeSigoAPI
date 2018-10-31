@@ -1,6 +1,7 @@
 package cl.usach.apitesis.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,10 +19,10 @@ public class IndicadorEvaluacion implements Serializable {
     private String descripcionIndicador;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_OBJETIVO")
-    @JsonBackReference
+    @JsonBackReference(value = "oa-indicador")
     private ObjetivoAprendizaje objetivoAprendizaje;
     @OneToMany(mappedBy = "indicadorEvaluacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonManagedReference(value = "indicador-evaluacion-a-completado")
     private Set<ACompletado> completados;
 
     public long getIdIndicador() {
