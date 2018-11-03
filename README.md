@@ -25,4 +25,19 @@ Request body
 `http://localhost:8082/api-tesis/curso/{idCurso}/alumnos`
 ### Obtener el listado de unidades de un curso (GET)
 `http://localhost:8082/api-tesis/curso/{idCurso}/unidades`
+### Actualizar el estado de un serie de indicadores para un alumno en específico
+`http://localhost:8082/api-tesis/acompletado/update/{idAlumno}/indicadores`
+```javascript
+Request body
+[
+    {
+        "idIndicador" : 1,
+        "status" : true
+    },
+    {
+        "idIndicador" : 2,
+        "status" : false
+    }
+]
+```
 
