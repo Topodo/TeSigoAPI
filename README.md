@@ -4,13 +4,13 @@
 
 ## Servicios REST
 ### Obtener el seguimiento de un alumno en una unidad determinada (GET)
-`http://localhost:8082/api-tesis/unidad/{idUnidad}/alumno/{idAlumno}`
+`http://206.189.195.214:8080/api/unidad/{idUnidad}/alumno/{idAlumno}`
 ### Actualizar estado de un indicador para un alumno en específico (PUT)
-`http://localhost:8082/api-tesis/acompletado/update/{idIndicador}/{idAlumno}`
+`http://206.189.195.214:8080/api/acompletado/update/{idIndicador}/{idAlumno}`
 ### Obtener los cursos de un profesor (GET)
-`http://localhost:8082/api-tesis/profesor/{idProfesor}/cursos`
+`http://206.189.195.214:8080/api/profesor/{idProfesor}/cursos`
 ### Insertar un nuevo profesor en la base de datos (POST)
-`http://localhost:8082/api-tesis/profesor`
+`http://206.189.195.214:8080/api/profesor`
 ```javascript
 Request body
 {
@@ -22,11 +22,11 @@ Request body
 }
 ```
 ### Obtener el listado de alumnos de un curso (GET)
-`http://localhost:8082/api-tesis/curso/{idCurso}/alumnos`
+`http://206.189.195.214:8080/api/curso/{idCurso}/alumnos`
 ### Obtener el listado de unidades de un curso (GET)
-`http://localhost:8082/api-tesis/curso/{idCurso}/unidades`
+`http://206.189.195.214:8080/api/curso/{idCurso}/unidades`
 ### Actualizar el estado de un serie de indicadores para un alumno en específico
-`http://localhost:8082/api-tesis/acompletado/update/{idAlumno}/indicadores`
+`http://206.189.195.214:8080/api/acompletado/update/{idAlumno}/indicadores`
 ```javascript
 Request body
 [

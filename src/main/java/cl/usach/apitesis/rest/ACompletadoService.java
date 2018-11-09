@@ -4,7 +4,6 @@ import cl.usach.apitesis.entities.ACompletado;
 import cl.usach.apitesis.repository.ACompletadoRepository;
 import cl.usach.apitesis.repository.AlumnoRepository;
 import cl.usach.apitesis.repository.IndicadorEvaluacionRepository;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
