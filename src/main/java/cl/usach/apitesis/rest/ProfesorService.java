@@ -7,7 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+@CrossOrigin(
+        origins = "*",
+        allowedHeaders = {"X-PINGOTHER",
+                "Content-Type",
+                "X-Requested-With",
+                "Accept","Origin",
+                "Access-Control-Request-Method",
+                "Access-Control-Request-Headers",
+                "Authorization","Access-Control-Allow-Origin"},
+        exposedHeaders = {"Access-Control-Allow-Credentials",
+                "Access-Control-Allow-Origin",
+                "Cache-Control",
+                "Content-Encoding",
+                "Expires",
+                "Pragma"})
 @RestController
 @RequestMapping("/profesor")
 public class ProfesorService {
