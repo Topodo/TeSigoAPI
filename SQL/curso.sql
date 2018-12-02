@@ -1,0 +1,8 @@
+/*
+-- Query: SELECT * FROM `tesis-api`.curso
+LIMIT 0, 1000
+
+-- Date: 2018-12-02 17:39
+*/
+INSERT INTO `curso` (`ID_CURSO`,`GRADO_CURSO`,`CANTIDAD_ALUMNOS`,`ID_PROFESOR`) VALUES (1,'Cuarto básico',3,1);
+INSERT INTO `curso` (`ID_CURSO`,`GRADO_CURSO`,`CANTIDAD_ALUMNOS`,`ID_PROFESOR`) VALUES (3,'2° Básico',10,1);

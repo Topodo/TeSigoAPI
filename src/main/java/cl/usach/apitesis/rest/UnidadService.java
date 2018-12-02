@@ -5,12 +5,15 @@ import cl.usach.apitesis.entities.Alumno;
 import cl.usach.apitesis.entities.ObjetivoAprendizaje;
 import cl.usach.apitesis.entities.Unidad;
 import cl.usach.apitesis.repository.AlumnoRepository;
+import cl.usach.apitesis.repository.CursoRepository;
 import cl.usach.apitesis.repository.UnidadRepository;
 import org.json.JSONException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @CrossOrigin(
         origins = "*",
@@ -35,6 +38,8 @@ public class UnidadService {
     AlumnoRepository alumnoRepository;
     @Autowired
     UnidadRepository unidadRepository;
+    @Autowired
+    CursoRepository cursoRepository;
 
     // Método que obtiene todos los indicadores de evaluación completados de un alumno y un objetivo de aprendizaje en particular
     public JSONArray getIndicadoresCompletados(Long idAlumno, Long idOA) throws JSONException {
@@ -91,5 +96,25 @@ public class UnidadService {
         JSONObject finalUnidad = new JSONObject();
         finalUnidad.put("subjects", unidadToJSON);
         return finalUnidad;
+    }
+
+    // Método que obtiene el JSON resultante con todas las unidades y la evolución de un alumno en particular
+    @RequestMapping(value = "all/alumno/{id_alumno}", method = RequestMethod.GET)
+    @ResponseBody
+    public JSONArray getUnidades(@PathVariable("id_alumno") Long idAlumno) throws JSONException {
+        Set<Unidad> unidades = this.alumnoRepository.findAlumnoByIdAlumno(idAlumno)
+                                                    .getCurso()
+                                                    .getUnidades();
+        JSONObject unidadToJSON;
+        JSONArray arrayUnidades = new JSONArray();
+        // Se agrega el contenido de cada unidad al JSON y luego se agrega al arreglo
+        for(Unidad unidad : unidades) {
+            unidadToJSON = new JSONObject();
+            unidadToJSON.put("id", unidad.getIdUnidad());
+            unidadToJSON.put("name", unidad.getNombreUnidad());
+            unidadToJSON.put("OAs", getOAs(unidad.getIdUnidad(), idAlumno));
+            arrayUnidades.add(unidadToJSON);
+        }
+        return arrayUnidades;
     }
 }
