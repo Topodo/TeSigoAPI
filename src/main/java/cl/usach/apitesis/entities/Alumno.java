@@ -42,6 +42,18 @@ public class Alumno implements Serializable {
     @JsonManagedReference(value = "alumno-reporte")
     private Set<Reporte> reportes;
 
+    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference(value = "alumno-evidencia")
+    private Set<FormularioEvidencia> evidencias;
+
+    public Set<FormularioEvidencia> getEvidencias() {
+        return evidencias;
+    }
+
+    public void setEvidencias(Set<FormularioEvidencia> evidencias) {
+        this.evidencias = evidencias;
+    }
+
     public Long getIdAlumno() {
         return idAlumno;
     }

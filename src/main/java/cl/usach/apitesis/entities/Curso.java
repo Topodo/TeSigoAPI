@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name="curso")
+@Table(name = "curso")
 public class Curso implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,10 +26,19 @@ public class Curso implements Serializable {
     @JsonManagedReference
     private Set<Alumno> alumnos;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ID_PROFESOR")
-    @JsonBackReference(value = "profesor-curso")
-    private Profesor profesor;
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+    @JoinTable(name = "profesor_cursos",
+            joinColumns = {
+                    @JoinColumn(name = "curso_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "profesor_id")
+            })
+    private Set<Profesor> profesores;
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference(value = "curso-unidad")
@@ -67,12 +76,12 @@ public class Curso implements Serializable {
         this.alumnos = alumnos;
     }
 
-    public Profesor getProfesor() {
-        return profesor;
+    public Set<Profesor> getProfesores() {
+        return profesores;
     }
 
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
+    public void setProfesores(Set<Profesor> profesores) {
+        this.profesores = profesores;
     }
 
     public Set<Unidad> getUnidades() {

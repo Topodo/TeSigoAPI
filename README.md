@@ -40,4 +40,16 @@ Request body
     }
 ]
 ```
-
+### Obtener todos los formularios de evidencias de un alumno específico (GET)
+`http://206.189.195.214:8080/api/formularioEvidencia/alumno/{idAlumno}`
+### Agregar un nuevo formulario de evidencia para un alumno específico (POST)
+`http://206.189.195.214:8080/api/formularioEvidencia/alumno/{idAlumno}`
+```javascript
+Request body
+{
+    "nombreEvidencia": "Cabro haciendo algo fome",
+    "contextoEvidencia": "Vi al cabro haciendo algo fome",
+    "fechaEvidencia": "2018-12-26T15:45:30.000+0000",
+    "firebaseID": null
+}
+```

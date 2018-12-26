@@ -29,8 +29,12 @@ public class Profesor implements Serializable {
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
 
-    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference(value = "profesor-curso")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "profesores")
     private Set<Curso> cursos;
 
     @Column(name = "FIREBASE_UID")
