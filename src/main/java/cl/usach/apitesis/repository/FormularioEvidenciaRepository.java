@@ -5,5 +5,5 @@ import cl.usach.apitesis.entities.FormularioEvidencia;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface FormularioEvidenciaRepository extends PagingAndSortingRepository<FormularioEvidencia, Long> {
-    Iterable<FormularioEvidencia> findAllByAlumno(Alumno alumno);
+    Iterable<FormularioEvidencia> findAllByAlumnoAndTipoEvidencia(Alumno alumno, String tipoEvidencia);
 }

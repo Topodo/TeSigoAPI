@@ -140,6 +140,7 @@ CREATE TABLE `formulario_evidencia` (
   `fecha_evidencia` datetime DEFAULT NULL,
   `firebase_id` varchar(255) DEFAULT NULL,
   `nombre_evidencia` varchar(255) DEFAULT NULL,
+  `tipo_evidencia` varchar (255) DEFAULT NULL,
   `id_alumno` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id_evidencia`),
   KEY `FKk4decx2fg2ajqlm46acsxntr1` (`id_alumno`)
@@ -152,7 +153,7 @@ CREATE TABLE `formulario_evidencia` (
 
 LOCK TABLES `formulario_evidencia` WRITE;
 /*!40000 ALTER TABLE `formulario_evidencia` DISABLE KEYS */;
-INSERT INTO `formulario_evidencia` VALUES (1,'Vi al cabro haciendo algo bacán','2018-12-26 12:45:30',NULL,'Cabro haciendo algo bacán',1),(6,'Vi al cabro haciendo algo fome','2018-12-26 12:45:30',NULL,'Cabro haciendo algo fome',1);
+INSERT INTO `formulario_evidencia` VALUES (1,'Vi al cabro haciendo algo bacán','2018-12-26 12:45:30',NULL,'Cabro haciendo algo bacán', 'video' ,1),(6,'Vi al cabro haciendo algo fome','2018-12-26 12:45:30',NULL,'Cabro haciendo algo fome', 'photo',1);
 /*!40000 ALTER TABLE `formulario_evidencia` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -30,6 +30,9 @@ public class FormularioEvidencia implements Serializable {
     @Column(name = "FIREBASE_ID")
     private String firebaseID;
 
+    @Column(name = "TIPO_EVIDENCIA")
+    private String tipoEvidencia;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ALUMNO")
     @JsonBackReference(value = "alumno-evidencia")
@@ -85,5 +88,13 @@ public class FormularioEvidencia implements Serializable {
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
+    }
+
+    public String getTipoEvidencia() {
+        return tipoEvidencia;
+    }
+
+    public void setTipoEvidencia(String tipoEvidencia) {
+        this.tipoEvidencia = tipoEvidencia;
     }
 }

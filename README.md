@@ -50,6 +50,19 @@ Request body
     "nombreEvidencia": "Cabro haciendo algo fome",
     "contextoEvidencia": "Vi al cabro haciendo algo fome",
     "fechaEvidencia": "2018-12-26T15:45:30.000+0000",
-    "firebaseID": null
+    "firebaseID": null,
+    "tipoEvidencia": "video"
+}
+```
+### Obtener los reportes de un alumno (GET)
+`http://206.189.195.214:8080/api/alumno/{idAlumno}/reportes`
+### Añadir un nuevo reporte a un alumno (POST)
+`http://206.189.195.214:8080/api/alumno/{idAlumno}/reporte/nuevo`
+```javascript
+Request body
+{
+	"nombreProfesor": "Maria Cecilia Maturana",
+	"descripcionReporte": "Primer reporte y lo quiero describir",
+	"asunto": "Asunto del reporte"
 }
 ```
