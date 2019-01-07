@@ -13,17 +13,17 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.*;
 
 @CrossOrigin(
         origins = "*",
         allowedHeaders = {"X-PINGOTHER",
                 "Content-Type",
                 "X-Requested-With",
-                "Accept","Origin",
+                "Accept", "Origin",
                 "Access-Control-Request-Method",
                 "Access-Control-Request-Headers",
-                "Authorization","Access-Control-Allow-Origin"},
+                "Authorization", "Access-Control-Allow-Origin"},
         exposedHeaders = {"Access-Control-Allow-Credentials",
                 "Access-Control-Allow-Origin",
                 "Cache-Control",
@@ -41,6 +41,8 @@ public class UnidadService {
     @Autowired
     CursoRepository cursoRepository;
 
+
+
     // Método que obtiene todos los indicadores de evaluación completados de un alumno y un objetivo de aprendizaje en particular
     public JSONArray getIndicadoresCompletados(Long idAlumno, Long idOA) throws JSONException {
         Alumno alumno = this.alumnoRepository.findAlumnoByIdAlumno(idAlumno);
@@ -49,7 +51,7 @@ public class UnidadService {
         for (ACompletado completado : aCompletado) {
             JSONObject indicadorToJSON = new JSONObject();
             ObjetivoAprendizaje objetivoAprendizaje = completado.getIndicadorEvaluacion().getObjetivoAprendizaje();
-            if(objetivoAprendizaje.getIdObjetivo() == idOA) {
+            if (objetivoAprendizaje.getIdObjetivo() == idOA) {
                 indicadorToJSON.put("id", completado.getIndicadorEvaluacion().getIdIndicador());
                 indicadorToJSON.put("description", completado.getIndicadorEvaluacion().getDescripcionIndicador());
                 indicadorToJSON.put("isComplete", completado.getIndicadorCompletado());
@@ -60,7 +62,7 @@ public class UnidadService {
     }
 
     // Método que obtiene todos los objetivos de aprendizaje de una unidad
-    public JSONArray getOAs(Long idUnidad, Long idAlumno) throws JSONException {
+    private JSONArray getOAs(Long idUnidad, Long idAlumno) throws JSONException {
         Unidad unidad = this.unidadRepository.findUnidadByIdUnidad(idUnidad);
         JSONArray OAsArray = new JSONArray();
         for (ObjetivoAprendizaje OA : unidad.getObjetivosAprendizaje()) {
@@ -72,12 +74,12 @@ public class UnidadService {
             int total = 0;
             for (Object indicador : indicadoresPorOA) {
                 JSONObject indicadorAux = (JSONObject) indicador;
-                if((Boolean) indicadorAux.get("isComplete")) {
+                if ((Boolean) indicadorAux.get("isComplete")) {
                     completados++;
                 }
                 total++;
             }
-            OAToJSON.put("percentage", ((double)completados / (double)total));
+            OAToJSON.put("percentage", ((double) completados / (double) total));
             OAToJSON.put("evalIndicators", indicadoresPorOA);
             OAsArray.add(OAToJSON);
         }
@@ -103,12 +105,12 @@ public class UnidadService {
     @ResponseBody
     public JSONArray getUnidades(@PathVariable("id_alumno") Long idAlumno) throws JSONException {
         Set<Unidad> unidades = this.alumnoRepository.findAlumnoByIdAlumno(idAlumno)
-                                                    .getCurso()
-                                                    .getUnidades();
+                .getCurso()
+                .getUnidades();
         JSONObject unidadToJSON;
         JSONArray arrayUnidades = new JSONArray();
         // Se agrega el contenido de cada unidad al JSON y luego se agrega al arreglo
-        for(Unidad unidad : unidades) {
+        for (Unidad unidad : unidades) {
             unidadToJSON = new JSONObject();
             unidadToJSON.put("id", unidad.getIdUnidad());
             unidadToJSON.put("name", unidad.getNombreUnidad());
@@ -117,4 +119,38 @@ public class UnidadService {
         }
         return arrayUnidades;
     }
+
+    // Método que obtiene el avance de un curso en una unidad
+    @RequestMapping(value = "/{idUnidad}/curso/{idCurso}/avance",
+            method = RequestMethod.GET)
+    @ResponseBody
+    public JSONArray avanceCurso(@PathVariable("idUnidad") Long idUnidad, @PathVariable("idCurso") Long idCurso) throws JSONException {
+        Set<ObjetivoAprendizaje> OAs = this.unidadRepository.findUnidadByIdUnidad(idUnidad).getObjetivosAprendizaje();
+        Set<Alumno> alumnos = this.cursoRepository.findCursoByIdCurso(idCurso).getAlumnos();
+        JSONArray avanceOAs = new JSONArray();
+        JSONArray promedios = new JSONArray();
+        for (Alumno alumno : alumnos) {
+            avanceOAs.add(this.getOAs(idUnidad, alumno.getIdAlumno()));
+        }
+        // Se calcula el promedio de avance para el curso
+        double porcentaje = 0;
+        for (ObjetivoAprendizaje OA : OAs) {
+            for (Object avanceOA : avanceOAs) {
+                for (Object subOA : (JSONArray)avanceOA) {
+                    JSONObject aux = (JSONObject)subOA;
+                    if (OA.getIdObjetivo() == (Long)aux.get("id")) {
+                        porcentaje += (double)aux.get("percentage");
+                    }
+                }
+            }
+            JSONObject json = new JSONObject();
+            json.put("idOA", OA.getIdObjetivo());
+            json.put("percentage", porcentaje / (double) alumnos.size());
+            json.put("OAName", OA.getDescripcionObjetivo());
+            promedios.add(json);
+            porcentaje = 0;
+        }
+        return promedios;
+    }
 }
+

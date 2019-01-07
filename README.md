@@ -66,3 +66,9 @@ Request body
 	"asunto": "Asunto del reporte"
 }
 ```
+### Obtener el avance de un curso en una unidad (GET)
+`http://206.189.195.214:8080/api/unidad/{idUnidad}/curso/{idCurso}/avance`
+### Obtener el avance de un curso en un OA (GET)
+`http://206.189.195.214:8080/api/objetivoAprendizaje/{idOA}/curso/{idCurso}/avance`
+### Obtener la lista ordenada del curso en función de si cumplieron o no un IE (GET)
+`http://206.189.195.214:8080/api/indicadorEvaluacion/{idIE}/curso/{idCurso}/ordenar`

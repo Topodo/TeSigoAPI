@@ -55,13 +55,13 @@ public class AlumnoService {
             method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Iterable<Reporte> setReporte(@PathVariable("id_alumno") Long idAlumno, @RequestBody Reporte reporte){
-        Alumno alumno = this.alumnoRepository.findById(idAlumno).get();
+    public Iterable<Reporte> createReport(@PathVariable("id_alumno") Long idAlumno, @RequestBody Reporte reporte){
+        Alumno alumno = this.alumnoRepository.findAlumnoByIdAlumno(idAlumno);
         Set<Reporte> reportes = alumno.getReportes();
         reporte.setAlumno(alumno);
         reportes.add(reporte);
         alumno.setReportes(reportes);
         this.alumnoRepository.save(alumno);
-        return this.getReportes(idAlumno);
+        return this.alumnoRepository.findAlumnoByIdAlumno(idAlumno).getReportes();
     }
 }
