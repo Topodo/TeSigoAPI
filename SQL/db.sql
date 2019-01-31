@@ -274,7 +274,11 @@ CREATE TABLE `profesor_cursos` (
   `curso_id` bigint(20) NOT NULL,
   `profesor_id` bigint(20) NOT NULL,
   PRIMARY KEY (`curso_id`,`profesor_id`),
-  KEY `FKc6t5xpoe39muq9tm3e6snd7gr` (`profesor_id`)
+  KEY `FKc6t5xpoe39muq9tm3e6snd7gr` (`profesor_id`),
+  CONSTRAINT `profesor_curso_ibfk_1`
+    FOREIGN KEY (`profesor_id`) REFERENCES `profesor` (`ID_PROFESOR`),
+  CONSTRAINT `profesor_curso_ibfk_2`
+    FOREIGN KEY (`curso_id`) REFERENCES `curso` (`ID_CURSO`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

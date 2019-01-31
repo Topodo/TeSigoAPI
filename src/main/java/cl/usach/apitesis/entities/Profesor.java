@@ -1,14 +1,16 @@
 package cl.usach.apitesis.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "profesor")
-@JsonIgnoreProperties(ignoreUnknown=true, value={"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties(ignoreUnknown=true, value={"hibernateLazyInitializer", "handler"})
 public class Profesor implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -29,13 +31,9 @@ public class Profesor implements Serializable {
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "profesores")
-    private Set<Curso> cursos;
+    @ManyToMany(mappedBy = "profesores")
+    @JsonIgnore
+    private Set<Curso> cursos = new HashSet<>();
 
     @Column(name = "FIREBASE_UID")
     private String firebaseUID;

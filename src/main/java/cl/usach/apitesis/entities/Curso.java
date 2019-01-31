@@ -1,10 +1,12 @@
 package cl.usach.apitesis.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,11 +28,7 @@ public class Curso implements Serializable {
     @JsonManagedReference
     private Set<Alumno> alumnos;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "profesor_cursos",
             joinColumns = {
                     @JoinColumn(name = "curso_id")
@@ -38,7 +36,8 @@ public class Curso implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "profesor_id")
             })
-    private Set<Profesor> profesores;
+    @JsonIgnore
+    private Set<Profesor> profesores = new HashSet<>();
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference(value = "curso-unidad")
