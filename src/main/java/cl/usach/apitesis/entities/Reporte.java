@@ -19,6 +19,8 @@ public class Reporte implements Serializable {
     private String descripcionReporte;
     @Column(name = "ASUNTO")
     private String asunto;
+    @Column(name = "FECHA")
+    private String fecha;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ALUMNO")
     @JsonBackReference(value = "alumno-reporte")
@@ -62,5 +64,13 @@ public class Reporte implements Serializable {
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

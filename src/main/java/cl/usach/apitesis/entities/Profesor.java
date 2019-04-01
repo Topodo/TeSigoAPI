@@ -31,6 +31,9 @@ public class Profesor implements Serializable {
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
 
+    @Column(name = "TIPO")
+    private String tipo;
+
     @ManyToMany(mappedBy = "profesores")
     @JsonIgnore
     private Set<Curso> cursos = new HashSet<>();
@@ -92,5 +95,13 @@ public class Profesor implements Serializable {
 
     public void setFirebaseUID(String firebaseUID) {
         this.firebaseUID = firebaseUID;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

@@ -29,6 +29,13 @@ public class ProfesorService {
     @Autowired
     ProfesorRepository profesorRepository;
 
+    // Método que obtiene los datos de un profesor
+    @RequestMapping(value = "/{firebase_id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Profesor getProfesorByFirebaseID(@PathVariable("firebase_id") String firebaseID) {
+        return this.profesorRepository.findProfesorByFirebaseUID(firebaseID);
+    }
+
     // Método que obtiene los cursos de un profesor
     @RequestMapping(value = "/{id}/cursos", method = RequestMethod.GET)
     @ResponseBody

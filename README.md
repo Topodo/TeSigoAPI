@@ -9,6 +9,8 @@
 `http://206.189.195.214:8080/api/acompletado/update/{idIndicador}/{idAlumno}`
 ### Obtener los cursos de un profesor (GET)
 `http://206.189.195.214:8080/api/profesor/{idProfesor}/cursos`
+### Obtener los datos de un profesor (GET)
+`http://206.189.195.214:8080/api/profesor/{idProfesor}`
 ### Insertar un nuevo profesor en la base de datos (POST)
 `http://206.189.195.214:8080/api/profesor`
 ```javascript
@@ -63,7 +65,8 @@ Request body
 {
 	"nombreProfesor": "Maria Cecilia Maturana",
 	"descripcionReporte": "Primer reporte y lo quiero describir",
-	"asunto": "Asunto del reporte"
+	"asunto": "Asunto del reporte",
+	"fecha" : "fecha del reporte"
 }
 ```
 ### Obtener el avance de un curso en una unidad (GET)
