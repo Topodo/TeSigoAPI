@@ -9,6 +9,8 @@
 `http://206.189.195.214:8080/api/acompletado/update/{idIndicador}/{idAlumno}`
 ### Obtener los cursos de un profesor (GET)
 `http://206.189.195.214:8080/api/profesor/{idProfesor}/cursos`
+### Obtener las unidades que dicta un profesor para un curso en específico (GET)
+`http://206.189.195.214:8080/api/profesor/{firebaseUID}/curso/{idCurso}/unidades`
 ### Obtener los datos de un profesor (GET)
 `http://206.189.195.214:8080/api/profesor/{idProfesor}`
 ### Insertar un nuevo profesor en la base de datos (POST)

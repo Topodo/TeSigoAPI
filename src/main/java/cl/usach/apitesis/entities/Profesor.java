@@ -38,6 +38,10 @@ public class Profesor implements Serializable {
     @JsonIgnore
     private Set<Curso> cursos = new HashSet<>();
 
+    @ManyToMany(mappedBy = "profesores")
+    @JsonIgnore
+    private Set<Unidad> unidades = new HashSet<>();
+
     @Column(name = "FIREBASE_UID")
     private String firebaseUID;
 
@@ -103,5 +107,13 @@ public class Profesor implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public Set<Unidad> getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Set<Unidad> unidades) {
+        this.unidades = unidades;
     }
 }
