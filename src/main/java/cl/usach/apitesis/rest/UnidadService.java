@@ -42,7 +42,6 @@ public class UnidadService {
     CursoRepository cursoRepository;
 
 
-
     // Método que obtiene todos los indicadores de evaluación completados de un alumno y un objetivo de aprendizaje en particular
     public JSONArray getIndicadoresCompletados(Long idAlumno, Long idOA) throws JSONException {
         Alumno alumno = this.alumnoRepository.findAlumnoByIdAlumno(idAlumno);
@@ -133,19 +132,21 @@ public class UnidadService {
             avanceOAs.add(this.getOAs(idUnidad, alumno.getIdAlumno()));
         }
         // Se calcula el promedio de avance para el curso
-        double porcentaje = 0;
+        int porcentaje = 0;
         for (ObjetivoAprendizaje OA : OAs) {
             for (Object avanceOA : avanceOAs) {
-                for (Object subOA : (JSONArray)avanceOA) {
-                    JSONObject aux = (JSONObject)subOA;
-                    if (OA.getIdObjetivo() == (Long)aux.get("id")) {
-                        porcentaje += (double)aux.get("percentage");
+                for (Object subOA : (JSONArray) avanceOA) {
+                    JSONObject aux = (JSONObject) subOA;
+                    if (OA.getIdObjetivo() == (Long) aux.get("id")) {
+                        if ((double) aux.get("percentage") == 1) {
+                            porcentaje++;
+                        }
                     }
                 }
             }
             JSONObject json = new JSONObject();
             json.put("idOA", OA.getIdObjetivo());
-            json.put("percentage", porcentaje / (double) alumnos.size());
+            json.put("percentage", (double) porcentaje / (double) alumnos.size());
             json.put("OAName", OA.getDescripcionObjetivo());
             promedios.add(json);
             porcentaje = 0;
