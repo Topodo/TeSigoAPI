@@ -3,6 +3,9 @@
 ## Backend correspondiente al proyecto de tesis
 
 ## Servicios REST
+###---------------------------------------------------------------------------------------------------------------------------------
+### Consideración: Todos los servicios están protegidos mediante JWT. Para obtener la autorización, enviar a través del Header de la petición el JSON Web Token a través del parámetro Authorization.
+###---------------------------------------------------------------------------------------------------------------------------------
 ### Obtener el seguimiento de un alumno en una unidad determinada (GET)
 `http://206.189.195.214:8080/api/unidad/{idUnidad}/alumno/{idAlumno}`
 ### Actualizar estado de un indicador para un alumno en específico (PUT)
@@ -77,3 +80,11 @@ Request body
 `http://206.189.195.214:8080/api/objetivoAprendizaje/{idOA}/curso/{idCurso}/avance`
 ### Obtener la lista ordenada del curso en función de si cumplieron o no un IE (GET)
 `http://206.189.195.214:8080/api/indicadorEvaluacion/{idIE}/curso/{idCurso}/ordenar`
+### Obtener token para autorización de uso de servicios
+`http://206.189.195.214:8080/api/get_token`
+```javascript
+Request body
+{
+    "firebaseID" : "q123123EASDASDAdqQEQE2bi1azQ" 
+}
+```

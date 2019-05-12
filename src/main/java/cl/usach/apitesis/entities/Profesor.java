@@ -45,6 +45,17 @@ public class Profesor implements Serializable {
     @Column(name = "FIREBASE_UID")
     private String firebaseUID;
 
+    @Transient
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Long getIdProfesor() {
         return idProfesor;
     }
